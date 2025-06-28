@@ -57,10 +57,5 @@ applicationSchema.index(
   }
 );
 
-// Only create indexes in production
-if (process.env.NODE_ENV === 'production') {
-  applicationSchema.createIndexes();
-}
-
 const Application = mongoose.model('Application', applicationSchema);
 export default Application;
