@@ -20,3 +20,4 @@ services:
         sync: false
       - key: AUTH0_AUDIENCE
         sync: false
+    healthCheckPath: /health

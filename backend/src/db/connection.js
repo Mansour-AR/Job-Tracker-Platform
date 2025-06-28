@@ -2,22 +2,22 @@ import mongoose from 'mongoose';
 
 const connectDB = async () => {
   try {
-    console.log('🔗 Connecting to MongoDB...');
-    console.log('📊 Database URI:', process.env.MONGO_URI);
+    console.log('Attempting to connect to MongoDB...');
+    console.log('MongoDB URI:', process.env.MONGO_URI ? 'Set' : 'Not set');
+    console.log('NODE_ENV:', process.env.NODE_ENV);
     
-    await mongoose.connect(process.env.MONGO_URI);
-    
-    console.log('✅ MongoDB Connected Successfully!');
-    console.log('🏠 Database Name:', mongoose.connection.db.databaseName);
-    console.log('🔌 Connection State:', mongoose.connection.readyState);
-    
-    // List all collections
-    const collections = await mongoose.connection.db.listCollections().toArray();
-    console.log('📁 Available Collections:', collections.map(c => c.name));
-    
-  } catch (err) {
-    console.error('❌ Database connection error:', err.message);
-    process.exit(1);
+    const conn = await mongoose.connect(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+
+    console.log(`MongoDB Connected: ${conn.connection.host}`);
+    console.log('Database connected: true');
+    return conn;
+  } catch (error) {
+    console.error('MongoDB connection error:', error.message);
+    console.error('Error details:', error);
+    throw error;
   }
 };
 

@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "node src/server.js",
+    "simple": "node simple-server.js",
     "test-server": "node test-server.js",
     "dev": "nodemon src/server.js",
     "build": "echo 'Build completed'",
