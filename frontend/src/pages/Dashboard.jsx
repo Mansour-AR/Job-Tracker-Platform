@@ -13,6 +13,7 @@ import {
   ChartBarIcon,
   HomeIcon
 } from '@heroicons/react/24/outline';
+import { API_ENDPOINTS } from '../config/api';
 
 const STATUS_LABELS = [
   { key: 'Applied', label: 'Applied', icon: BriefcaseIcon, color: 'text-blue-600' },
@@ -53,7 +54,7 @@ export default function Dashboard() {
         return;
       }
       
-      const url = `http://localhost:5000/jobs?userId=${userId}`;
+      const url = API_ENDPOINTS.getJobsWithUser(userId);
       
       const res = await fetch(url, {
         method: 'GET',
@@ -93,7 +94,7 @@ export default function Dashboard() {
         return;
       }
       
-      const url = `http://localhost:5000/jobs/stats?userId=${userId}`;
+      const url = API_ENDPOINTS.getStatsWithUser(userId);
       
       const res = await fetch(url, {
         method: 'GET',

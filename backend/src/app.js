@@ -20,8 +20,14 @@ app.get('/debug', (req, res) => {
 const allowedOrigins = [
   'http://localhost:5173', // Vite dev server
   'http://localhost:3000', // Alternative dev port
-  'https://your-frontend-domain.vercel.app', // Replace with your actual frontend domain
-  'https://your-frontend-domain.netlify.app'  // Replace with your actual frontend domain
+  'http://localhost:4173', // Vite preview server
+  // Vercel domains (will be automatically allowed)
+  /^https:\/\/.*\.vercel\.app$/,
+  // Add your specific Vercel domain here
+  'https://your-app-name.vercel.app', // Replace with your actual Vercel domain
+  // Netlify domains (if you decide to use Netlify instead)
+  /^https:\/\/.*\.netlify\.app$/,
+  'https://your-app-name.netlify.app'  // Replace with your actual Netlify domain
 ];
 
 app.use(cors({ 
@@ -29,9 +35,20 @@ app.use(cors({
     // Allow requests with no origin (like mobile apps or curl requests)
     if (!origin) return callback(null, true);
     
-    if (allowedOrigins.indexOf(origin) !== -1) {
+    // Check if origin matches any of the allowed patterns
+    const isAllowed = allowedOrigins.some(allowedOrigin => {
+      if (typeof allowedOrigin === 'string') {
+        return origin === allowedOrigin;
+      } else if (allowedOrigin instanceof RegExp) {
+        return allowedOrigin.test(origin);
+      }
+      return false;
+    });
+    
+    if (isAllowed) {
       callback(null, true);
     } else {
+      console.log('CORS blocked origin:', origin);
       callback(new Error('Not allowed by CORS'));
     }
   },
@@ -70,6 +87,27 @@ app.use('/auth', authRouter);
 // Health check route
 app.get('/health', (req, res) => {
   res.json({ status: 'Backend is healthy!' });
+});
+
+// Database test route
+app.get('/db-test', async (req, res) => {
+  try {
+    const mongoose = await import('mongoose');
+    const isConnected = mongoose.connection.readyState === 1;
+    
+    res.json({
+      databaseConnected: isConnected,
+      connectionState: mongoose.connection.readyState,
+      databaseName: isConnected ? mongoose.connection.db.databaseName : null,
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    res.status(500).json({
+      databaseConnected: false,
+      error: error.message,
+      timestamp: new Date().toISOString()
+    });
+  }
 });
 
 export default app; 

@@ -70,6 +70,27 @@ router.get('/debug', async (req, res) => {
   }
 });
 
+// TEST: Create a sample job for testing
+router.post('/test-create', async (req, res) => {
+  try {
+    const testJob = await Application.create({
+      title: 'Software Engineer',
+      company: 'Tech Corp',
+      status: 'Applied',
+      userId: 'test-user-123',
+      notes: 'This is a test job created for testing purposes',
+      jobUrl: 'https://example.com/job'
+    });
+    
+    res.status(201).json({
+      message: 'Test job created successfully',
+      job: testJob
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // UPDATE
 router.put('/:id', checkUserId, async (req, res) => {
   try {

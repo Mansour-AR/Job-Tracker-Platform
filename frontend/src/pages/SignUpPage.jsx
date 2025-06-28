@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { EyeIcon, EyeSlashIcon, EnvelopeIcon, LockClosedIcon, UserIcon } from '@heroicons/react/24/outline';
 import AuthLoading from '../components/AuthLoading';
+import { API_ENDPOINTS } from '../config/api';
 
 export default function SignUpPage() {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ export default function SignUpPage() {
     
     try {
       // Register user through our custom backend API
-      const response = await fetch('http://localhost:5000/auth/register', {
+      const response = await fetch(API_ENDPOINTS.REGISTER, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { EyeIcon, EyeSlashIcon, EnvelopeIcon, LockClosedIcon } from '@heroicons/react/24/outline';
 import AuthLoading from '../components/AuthLoading';
+import { API_ENDPOINTS } from '../config/api';
 
 export default function SignInPage() {
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ export default function SignInPage() {
     
     try {
       // Login user through our custom backend API
-      const response = await fetch('http://localhost:5000/auth/login', {
+      const response = await fetch(API_ENDPOINTS.LOGIN, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

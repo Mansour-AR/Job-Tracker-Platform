@@ -10,6 +10,7 @@ import {
   DocumentTextIcon, 
   PlusIcon 
 } from '@heroicons/react/24/outline';
+import { API_ENDPOINTS } from '../config/api';
 
 export default function Jobs() {
   const [jobs, setJobs] = useState([]);
@@ -53,7 +54,7 @@ export default function Jobs() {
         return;
       }
       
-      const url = `http://localhost:5000/jobs?userId=${userId}`;
+      const url = API_ENDPOINTS.getJobsWithUser(userId);
       
       const res = await fetch(url, {
         method: 'GET',
@@ -107,7 +108,7 @@ export default function Jobs() {
     setUpdatingJob(true);
     try {
       const userId = localStorage.getItem('user_id');
-      const response = await fetch(`http://localhost:5000/jobs/${editingJob._id}?userId=${userId}`, {
+      const response = await fetch(`${API_ENDPOINTS.getJobById(editingJob._id)}?userId=${userId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -145,7 +146,7 @@ export default function Jobs() {
     setDeletingJob(true);
     try {
       const userId = localStorage.getItem('user_id');
-      const response = await fetch(`http://localhost:5000/jobs/${jobToDelete.id}?userId=${userId}`, {
+      const response = await fetch(`${API_ENDPOINTS.getJobById(jobToDelete.id)}?userId=${userId}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

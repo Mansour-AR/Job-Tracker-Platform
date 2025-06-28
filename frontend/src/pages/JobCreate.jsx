@@ -7,6 +7,7 @@ import {
   PlusIcon, 
   DocumentTextIcon 
 } from '@heroicons/react/24/outline';
+import { API_ENDPOINTS } from '../config/api';
 
 const STATUS_OPTIONS = [
   'Applied',
@@ -45,7 +46,7 @@ export default function JobCreate() {
         return false;
       }
       
-      const res = await fetch('http://localhost:5000/jobs', {
+      const res = await fetch(API_ENDPOINTS.JOBS, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
