@@ -7,6 +7,15 @@ import authRouter from './routes/auth.js';
 
 const app = express();
 
+// Simple test route at the very beginning
+app.get('/debug', (req, res) => {
+  res.json({ 
+    message: 'Express server is working!',
+    timestamp: new Date().toISOString(),
+    env: process.env.NODE_ENV || 'development'
+  });
+});
+
 // CORS configuration for both development and production
 const allowedOrigins = [
   'http://localhost:5173', // Vite dev server
