@@ -10,7 +10,8 @@ const checkUserId = (req, res, next) => {
   if (!userId) {
     return res.status(401).json({ 
       error: 'User ID required',
-      message: 'User ID is required for this operation'
+      message: 'User ID is required for this operation. Add ?userId=your-user-id to the URL or provide userId in the request body.',
+      example: '/jobs?userId=your-user-id'
     });
   }
   req.userId = userId;
