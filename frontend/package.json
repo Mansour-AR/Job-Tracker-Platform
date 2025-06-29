@@ -38,9 +38,9 @@
     "tailwindcss": "^4.1.11",
     "vite": "^6.3.5"
   },
-  "description": "This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.",
+  "description": "This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules. Updated with correct design.",
   "main": "eslint.config.js",
-  "keywords": [],
+  "keywords": ["job-tracker", "react", "vite"],
   "author": "",
   "license": "ISC"
 }
