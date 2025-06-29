@@ -173,101 +173,63 @@ export default function Dashboard() {
   return (
     <DashboardLayout>
       <div className="h-full overflow-y-auto">
-        <div className="mb-6 sm:mb-8">
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold mb-2 text-blue-900 drop-shadow">
-            <HomeIcon className="inline-block mr-2 sm:mr-3 h-6 w-6 sm:h-8 sm:w-8 lg:h-10 lg:w-10" />
+        <div className="mb-8">
+          <h1 className="text-4xl font-extrabold mb-2 text-blue-900 drop-shadow">
+            <HomeIcon className="inline-block mr-3 h-10 w-10" />
             Job Dashboard
           </h1>
-          <p className="text-sm sm:text-base lg:text-lg text-gray-700 mb-4">Welcome back, <span className="font-semibold">{user?.name || user?.email}</span></p>
+          <p className="text-gray-700 mb-4 text-lg">Welcome back, <span className="font-semibold">{user?.name || user?.email}</span></p>
         </div>
 
         {/* Overview Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
-          <div className="glass-card card-effect p-4 sm:p-6 flex flex-col items-center border-l-8 border-blue-400 hover:scale-105 transition-transform duration-200">
-            <DocumentTextIcon className="h-6 w-6 sm:h-8 sm:w-8 text-blue-600 mb-2" />
-            <div className="text-2xl sm:text-3xl font-extrabold text-blue-700 drop-shadow">{totalJobs}</div>
-            <div className="text-xs sm:text-sm lg:text-base text-gray-700 mt-2 font-semibold text-center">Total Jobs</div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <div className="glass-card card-effect p-6 flex flex-col items-center border-l-8 border-blue-400 hover:scale-105 transition-transform duration-200">
+            <DocumentTextIcon className="h-8 w-8 text-blue-600 mb-2" />
+            <div className="text-3xl font-extrabold text-blue-700 drop-shadow">{totalJobs}</div>
+            <div className="text-gray-700 mt-2 font-semibold">Total Jobs</div>
           </div>
-          <div className="glass-card card-effect p-4 sm:p-6 flex flex-col items-center border-l-8 border-green-400 hover:scale-105 transition-transform duration-200">
-            <ClockIcon className="h-6 w-6 sm:h-8 sm:w-8 text-green-600 mb-2" />
-            <div className="text-2xl sm:text-3xl font-extrabold text-green-700 drop-shadow">{activeJobs}</div>
-            <div className="text-xs sm:text-sm lg:text-base text-gray-700 mt-2 font-semibold text-center">Active Applications</div>
+          <div className="glass-card card-effect p-6 flex flex-col items-center border-l-8 border-green-400 hover:scale-105 transition-transform duration-200">
+            <ClockIcon className="h-8 w-8 text-green-600 mb-2" />
+            <div className="text-3xl font-extrabold text-green-700 drop-shadow">{activeJobs}</div>
+            <div className="text-gray-700 mt-2 font-semibold">Active Applications</div>
           </div>
-          <div className="glass-card card-effect p-4 sm:p-6 flex flex-col items-center border-l-8 border-purple-400 hover:scale-105 transition-transform duration-200 sm:col-span-2 lg:col-span-1">
-            <ChartBarIcon className="h-6 w-6 sm:h-8 sm:w-8 text-purple-600 mb-2" />
-            <div className="text-2xl sm:text-3xl font-extrabold text-purple-700 drop-shadow">
+          <div className="glass-card card-effect p-6 flex flex-col items-center border-l-8 border-purple-400 hover:scale-105 transition-transform duration-200">
+            <ChartBarIcon className="h-8 w-8 text-purple-600 mb-2" />
+            <div className="text-3xl font-extrabold text-purple-700 drop-shadow">
               {totalJobs > 0 ? Math.round((activeJobs / totalJobs) * 100) : 0}%
             </div>
-            <div className="text-xs sm:text-sm lg:text-base text-gray-700 mt-2 font-semibold text-center">Success Rate</div>
+            <div className="text-gray-700 mt-2 font-semibold">Success Rate</div>
           </div>
         </div>
 
         {/* Status Breakdown */}
-        <div className="glass-card card-effect p-4 sm:p-6 lg:p-8 mb-6 sm:mb-8">
-          <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-blue-800">Job Status Overview</h2>
+        <div className="glass-card card-effect p-8 mb-8">
+          <h2 className="text-2xl font-bold mb-6 text-blue-800">Job Status Overview</h2>
           {loadingJobs ? (
             <div className="text-gray-500 text-center py-8">Loading job statistics...</div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
-              {STATUS_LABELS.map(status => {
-                const count = jobs.filter(job => job.status === status.key).length;
-                const percentage = totalJobs > 0 ? Math.round((count / totalJobs) * 100) : 0;
-                const IconComponent = status.icon;
-                
-                return (
-                  <div key={status.key} className="bg-white/50 rounded-lg p-3 sm:p-4 border border-gray-200">
-                    <div className="flex items-center justify-between mb-2">
-                      <div className="flex items-center gap-2">
-                        <IconComponent className={`h-5 w-5 ${status.color}`} />
-                        <span className="text-sm sm:text-base font-semibold text-gray-800">{status.label}</span>
-                      </div>
-                      <span className="text-lg sm:text-xl font-bold text-gray-900">{count}</span>
-                    </div>
-                    <div className="w-full bg-gray-200 rounded-full h-2">
-                      <div 
-                        className={`h-2 rounded-full ${status.color.replace('text-', 'bg-')}`}
-                        style={{ width: `${percentage}%` }}
-                      />
-                    </div>
-                    <div className="text-xs text-gray-600 mt-1">{percentage}%</div>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+              {STATUS_LABELS.map(({ key, label, icon: Icon, color }) => (
+                <div key={key} className="glass-card card-effect p-4 flex flex-col items-center border-l-4 border-blue-400 hover:scale-105 transition-transform duration-200">
+                  <Icon className={`h-6 w-6 ${color} mb-2`} />
+                  <div className="text-2xl font-extrabold text-blue-700 drop-shadow">
+                    {jobs.filter(job => job.status === key).length}
                   </div>
-                );
-              })}
-            </div>
-          )}
-        </div>
-
-        {/* Recent Jobs */}
-        <div className="glass-card card-effect p-4 sm:p-6 lg:p-8">
-          <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-blue-800">Recent Job Applications</h2>
-          {loadingJobs ? (
-            <div className="text-gray-500 text-center py-8">Loading recent jobs...</div>
-          ) : jobs.length === 0 ? (
-            <div className="text-center py-8">
-              <div className="text-gray-400 text-lg italic">No jobs found. Start by adding a new job!</div>
-            </div>
-          ) : (
-            <div className="space-y-3 sm:space-y-4">
-              {jobs.slice(0, 5).map(job => (
-                <div key={job._id} className="bg-white/50 rounded-lg p-3 sm:p-4 border border-gray-200 hover:shadow-md transition-shadow">
-                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-                    <div className="flex-1">
-                      <h3 className="font-semibold text-gray-800 text-sm sm:text-base">{job.title}</h3>
-                      <p className="text-gray-600 text-xs sm:text-sm">{job.company}</p>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className={`text-xs px-2 py-1 rounded-full font-semibold ${statusBgColors[job.status] || 'bg-gray-100 text-gray-700'}`}>
-                        {job.status}
-                      </span>
-                      <span className="text-xs text-gray-500">
-                        {new Date(job.createdAt).toLocaleDateString()}
-                      </span>
-                    </div>
-                  </div>
+                  <div className="text-gray-700 mt-1 font-medium text-sm text-center">{label}</div>
                 </div>
               ))}
             </div>
           )}
+        </div>
+
+        {/* Charts Section */}
+        <div className="glass-card card-effect p-8 mb-8">
+          <h2 className="text-2xl font-bold mb-6 text-blue-800">Analytics & Charts</h2>
+          <StatsChart 
+            stats={stats} 
+            loading={loadingStats} 
+            error={statsError} 
+          />
         </div>
       </div>
     </DashboardLayout>

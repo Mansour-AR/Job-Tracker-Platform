@@ -89,23 +89,23 @@ export default function JobCreate() {
 
   return (
     <DashboardLayout>
-      <div className="mb-6 sm:mb-8">
-        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold mb-2 text-blue-900 drop-shadow">
-          <PlusIcon className="inline-block mr-2 sm:mr-3 h-6 w-6 sm:h-8 sm:w-8 lg:h-10 lg:w-10" />
+      <div className="mb-8">
+        <h1 className="text-4xl font-extrabold mb-2 text-blue-900 drop-shadow">
+          <PlusIcon className="inline-block mr-3 h-10 w-10" />
           Add New Job
         </h1>
-        <p className="text-sm sm:text-base lg:text-lg text-gray-700 mb-4">Create a new job application to track</p>
+        <p className="text-gray-700 mb-4 text-lg">Create a new job application to track</p>
       </div>
 
-      <div className="max-w-sm sm:max-w-md mx-auto">
-        <div className="glass-card card-effect p-4 sm:p-6 lg:p-8">
-          <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-blue-800 text-center">
-            <DocumentTextIcon className="inline-block mr-2 h-5 w-5 sm:h-6 sm:w-6" />
+      <div className="max-w-md mx-auto">
+        <div className="glass-card card-effect p-8">
+          <h2 className="text-2xl font-bold mb-6 text-blue-800 text-center">
+            <DocumentTextIcon className="inline-block mr-2 h-6 w-6" />
             Job Application Form
           </h2>
           <JobForm onSubmit={handleSubmit} loading={loading} onSuccess={handleSuccess} />
-          {message && <div className="mt-3 text-green-600 text-center font-medium text-xs sm:text-sm">{message}</div>}
-          {error && <div className="mt-3 text-red-600 text-center text-xs sm:text-sm">{error}</div>}
+          {message && <div className="mt-3 text-green-600 text-center font-medium text-sm">{message}</div>}
+          {error && <div className="mt-3 text-red-600 text-center text-sm">{error}</div>}
         </div>
       </div>
 
