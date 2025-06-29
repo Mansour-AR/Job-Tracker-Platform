@@ -21,13 +21,10 @@ const allowedOrigins = [
   'http://localhost:5173', // Vite dev server
   'http://localhost:3000', // Alternative dev port
   'http://localhost:4173', // Vite preview server
+  // Specific Vercel domain
+  'https://job-tracker-platform.vercel.app',
   // Vercel domains (will be automatically allowed)
-  /^https:\/\/.*\.vercel\.app$/,
-  // Add your specific Vercel domain here
-  'https://your-app-name.vercel.app', // Replace with your actual Vercel domain
-  // Netlify domains (if you decide to use Netlify instead)
-  /^https:\/\/.*\.netlify\.app$/,
-  'https://your-app-name.netlify.app'  // Replace with your actual Netlify domain
+  /^https:\/\/.*\.vercel\.app$/, 
 ];
 
 app.use(cors({ 
