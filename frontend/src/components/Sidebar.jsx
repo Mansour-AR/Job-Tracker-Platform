@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { BriefcaseIcon, PlusIcon, ListBulletIcon, ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline';
 
-const Sidebar = ({ onClose }) => {
+const Sidebar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
@@ -48,13 +48,6 @@ const Sidebar = ({ onClose }) => {
     navigate('/');
   };
 
-  const handleNavClick = () => {
-    // Close sidebar on mobile when navigation item is clicked
-    if (onClose) {
-      onClose();
-    }
-  };
-
   return (
     <aside className="h-screen w-64 bg-gradient-to-b from-blue-900 to-blue-600 text-white flex flex-col py-8 px-4 shadow-xl">
       <div className="flex flex-col items-center mb-10">
@@ -73,7 +66,6 @@ const Sidebar = ({ onClose }) => {
           <Link
             key={item.name}
             to={item.path}
-            onClick={handleNavClick}
             className={`flex items-center gap-3 px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:bg-blue-800/80 hover:scale-[1.03] ${location.pathname === item.path ? 'bg-white text-blue-800 shadow font-bold' : 'bg-blue-700/0'}`}
           >
             {getIcon(item.icon)}

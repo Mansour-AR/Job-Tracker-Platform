@@ -182,85 +182,94 @@ export default function Jobs() {
   };
 
   if (!user) {
-    return <div className="flex justify-center items-center h-screen">Loading user information...</div>;
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="text-center">
+          <div className="text-lg font-semibold mb-2">Loading user information...</div>
+          <div className="text-sm text-gray-600">Please wait while we load your profile</div>
+        </div>
+      </div>
+    );
   }
 
   return (
     <DashboardLayout>
-      <div className="mb-8">
-        <h1 className="text-4xl font-extrabold mb-2 text-blue-900 drop-shadow">
-          <BriefcaseIcon className="inline-block mr-3 h-10 w-10" />
-          Your Jobs
-        </h1>
-        <p className="text-gray-700 mb-4 text-lg">Manage and track your job applications</p>
-      </div>
-      
-      <div className="glass-card card-effect p-8 mb-8">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold text-blue-800">
-            <DocumentTextIcon className="inline-block mr-2 h-6 w-6" />
-            Job Applications ({jobs.length})
-          </h2>
-          <Link
-            to="/jobs/new"
-            className="inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-lg shadow-sm text-base font-medium text-white bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 transform hover:scale-[1.02]"
-          >
-            <PlusIcon className="h-5 w-5 mr-2" />
-            Add New Job
-          </Link>
+      <div className="h-full overflow-y-auto">
+        <div className="mb-8">
+          <h1 className="text-4xl font-extrabold mb-2 text-blue-900 drop-shadow">
+            <BriefcaseIcon className="inline-block mr-3 h-10 w-10" />
+            Your Jobs
+          </h1>
+          <p className="text-gray-700 mb-4 text-lg">Manage and track your job applications</p>
+        </div>
+        
+        <div className="glass-card card-effect p-8 mb-8">
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-2xl font-bold text-blue-800">
+              <DocumentTextIcon className="inline-block mr-2 h-6 w-6" />
+              Job Applications ({jobs.length})
+            </h2>
+            <Link
+              to="/jobs/new"
+              className="inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-lg shadow-sm text-base font-medium text-white bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 transform hover:scale-[1.02]"
+            >
+              <PlusIcon className="h-5 w-5 mr-2" />
+              Add New Job
+            </Link>
+          </div>
+
+          {loadingJobs ? (
+            <div className="text-center py-12">
+              <div className="text-gray-500 text-lg">Loading your jobs...</div>
+            </div>
+          ) : error ? (
+            <div className="bg-red-50 border border-red-200 rounded-lg p-6">
+              <h3 className="text-lg font-bold text-red-800 mb-2">Error Loading Jobs</h3>
+              <p className="text-red-600 mb-4">{error}</p>
+              <button
+                onClick={fetchJobs}
+                className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors"
+              >
+                Retry
+              </button>
+            </div>
+          ) : (
+            <JobList 
+              jobs={jobs} 
+              onEdit={handleEdit}
+              onDelete={handleDeleteJob}
+            />
+          )}
         </div>
 
-        {loadingJobs ? (
-          <div className="text-center py-12">
-            <div className="text-gray-500 text-lg">Loading your jobs...</div>
-          </div>
-        ) : error ? (
-          <div className="bg-red-50 border border-red-200 rounded-lg p-6">
-            <h3 className="text-lg font-bold text-red-800 mb-2">Error Loading Jobs</h3>
-            <p className="text-red-600 mb-4">{error}</p>
-            <button
-              onClick={fetchJobs}
-              className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors"
-            >
-              Retry
-            </button>
-          </div>
-        ) : (
-          <JobList 
-            jobs={jobs} 
-            onEdit={handleEdit}
-            onDelete={handleDeleteJob}
+        {/* Modals */}
+        {editModalOpen && (
+          <EditModal
+            job={editingJob}
+            onClose={closeEditModal}
+            onUpdate={handleUpdateJob}
+            isUpdating={updatingJob}
+          />
+        )}
+
+        {deleteModalOpen && (
+          <DeleteConfirmationModal
+            jobTitle={jobToDelete?.title}
+            onConfirm={confirmDeleteJob}
+            onCancel={closeDeleteModal}
+            isDeleting={deletingJob}
+          />
+        )}
+
+        {/* Toast */}
+        {toast.show && (
+          <Toast
+            message={toast.message}
+            type={toast.type}
+            onClose={hideToast}
           />
         )}
       </div>
-
-      {/* Modals */}
-      {editModalOpen && (
-        <EditModal
-          job={editingJob}
-          onClose={closeEditModal}
-          onUpdate={handleUpdateJob}
-          isUpdating={updatingJob}
-        />
-      )}
-
-      {deleteModalOpen && (
-        <DeleteConfirmationModal
-          jobTitle={jobToDelete?.title}
-          onConfirm={confirmDeleteJob}
-          onCancel={closeDeleteModal}
-          isDeleting={deletingJob}
-        />
-      )}
-
-      {/* Toast */}
-      {toast.show && (
-        <Toast
-          message={toast.message}
-          type={toast.type}
-          onClose={hideToast}
-        />
-      )}
     </DashboardLayout>
   );
 }

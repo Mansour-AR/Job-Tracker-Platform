@@ -40,10 +40,10 @@ const JobForm = ({ onSubmit, loading, onSuccess }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white p-6 rounded-xl shadow-lg flex flex-col gap-4 border border-gray-100">
-      <div className="flex items-center mb-2">
-        <BriefcaseIcon className="h-5 w-5 text-blue-600 mr-2" />
-        <h2 className="text-xl font-bold text-blue-700">Add New Job</h2>
+    <form onSubmit={handleSubmit} className="space-y-6">
+      <div className="flex items-center mb-6">
+        <BriefcaseIcon className="h-6 w-6 text-blue-600 mr-3" />
+        <h2 className="text-2xl font-bold text-blue-800">Job Details</h2>
       </div>
       
       <div className="relative">
@@ -53,7 +53,7 @@ const JobForm = ({ onSubmit, loading, onSuccess }) => {
           value={form.title}
           onChange={handleChange}
           placeholder="Job Title"
-          className="border border-gray-300 p-2.5 pl-10 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition text-base w-full"
+          className="border border-gray-300 p-3 pl-10 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 text-base w-full"
           required
         />
       </div>
@@ -65,7 +65,7 @@ const JobForm = ({ onSubmit, loading, onSuccess }) => {
           value={form.company}
           onChange={handleChange}
           placeholder="Company"
-          className="border border-gray-300 p-2.5 pl-10 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition text-base w-full"
+          className="border border-gray-300 p-3 pl-10 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 text-base w-full"
           required
         />
       </div>
@@ -78,7 +78,7 @@ const JobForm = ({ onSubmit, loading, onSuccess }) => {
           onChange={handleChange}
           placeholder="Job URL (optional)"
           type="url"
-          className="border border-gray-300 p-2.5 pl-10 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition text-base w-full"
+          className="border border-gray-300 p-3 pl-10 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 text-base w-full"
         />
       </div>
       
@@ -86,7 +86,7 @@ const JobForm = ({ onSubmit, loading, onSuccess }) => {
         name="status"
         value={form.status}
         onChange={handleChange}
-        className="border border-gray-300 p-2.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition text-base"
+        className="border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 text-base w-full"
       >
         <option value="Applied">Applied</option>
         <option value="Interview Scheduled">Interview Scheduled</option>
@@ -103,14 +103,14 @@ const JobForm = ({ onSubmit, loading, onSuccess }) => {
           value={form.notes}
           onChange={handleChange}
           placeholder="Notes (optional)"
-          rows="3"
-          className="border border-gray-300 p-2.5 pl-10 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition text-base resize-none w-full"
+          rows="4"
+          className="border border-gray-300 p-3 pl-10 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 text-base resize-none w-full"
         />
       </div>
       
       <button
         type="submit"
-        className="bg-gradient-to-r from-blue-600 to-blue-500 text-white py-2.5 rounded-lg font-semibold text-base shadow hover:from-blue-700 hover:to-blue-600 transition-colors flex items-center justify-center"
+        className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 rounded-lg font-semibold text-base shadow-lg hover:from-blue-700 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 transform hover:scale-[1.02] flex items-center justify-center"
         disabled={loading}
       >
         <PlusIcon className="h-5 w-5 mr-2" />

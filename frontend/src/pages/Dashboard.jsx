@@ -207,6 +207,8 @@ export default function Dashboard() {
           <h2 className="text-2xl font-bold mb-6 text-blue-800">Job Status Overview</h2>
           {loadingJobs ? (
             <div className="text-gray-500 text-center py-8">Loading job statistics...</div>
+          ) : error ? (
+            <div className="text-red-500 text-center py-8">{error}</div>
           ) : (
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
               {STATUS_LABELS.map(({ key, label, icon: Icon, color }) => (

@@ -89,33 +89,35 @@ export default function JobCreate() {
 
   return (
     <DashboardLayout>
-      <div className="mb-8">
-        <h1 className="text-4xl font-extrabold mb-2 text-blue-900 drop-shadow">
-          <PlusIcon className="inline-block mr-3 h-10 w-10" />
-          Add New Job
-        </h1>
-        <p className="text-gray-700 mb-4 text-lg">Create a new job application to track</p>
-      </div>
-
-      <div className="max-w-md mx-auto">
-        <div className="glass-card card-effect p-8">
-          <h2 className="text-2xl font-bold mb-6 text-blue-800 text-center">
-            <DocumentTextIcon className="inline-block mr-2 h-6 w-6" />
-            Job Application Form
-          </h2>
-          <JobForm onSubmit={handleSubmit} loading={loading} onSuccess={handleSuccess} />
-          {message && <div className="mt-3 text-green-600 text-center font-medium text-sm">{message}</div>}
-          {error && <div className="mt-3 text-red-600 text-center text-sm">{error}</div>}
+      <div className="h-full overflow-y-auto">
+        <div className="mb-8">
+          <h1 className="text-4xl font-extrabold mb-2 text-blue-900 drop-shadow">
+            <PlusIcon className="inline-block mr-3 h-10 w-10" />
+            Add New Job
+          </h1>
+          <p className="text-gray-700 mb-4 text-lg">Create a new job application to track</p>
         </div>
-      </div>
 
-      {toast.show && (
-        <Toast
-          message={toast.message}
-          type={toast.type}
-          onClose={hideToast}
-        />
-      )}
+        <div className="max-w-md mx-auto">
+          <div className="glass-card card-effect p-8">
+            <h2 className="text-2xl font-bold mb-6 text-blue-800 text-center">
+              <DocumentTextIcon className="inline-block mr-2 h-6 w-6" />
+              Job Application Form
+            </h2>
+            <JobForm onSubmit={handleSubmit} loading={loading} onSuccess={handleSuccess} />
+            {message && <div className="mt-3 text-green-600 text-center font-medium text-sm">{message}</div>}
+            {error && <div className="mt-3 text-red-600 text-center text-sm">{error}</div>}
+          </div>
+        </div>
+
+        {toast.show && (
+          <Toast
+            message={toast.message}
+            type={toast.type}
+            onClose={hideToast}
+          />
+        )}
+      </div>
     </DashboardLayout>
   );
 } 
