@@ -1,14 +1,16 @@
 import React, { useEffect } from 'react';
 
-const Toast = ({ message, type = 'success', onClose, duration = 3000 }) => {
+const Toast = ({ message, type = 'success', isVisible, onClose, duration = 3000 }) => {
   useEffect(() => {
-    if (duration > 0) {
+    if (isVisible && duration > 0) {
       const timer = setTimeout(() => {
         onClose();
       }, duration);
       return () => clearTimeout(timer);
     }
-  }, [duration, onClose]);
+  }, [isVisible, duration, onClose]);
+
+  if (!isVisible) return null;
 
   const bgColor = type === 'success' ? 'bg-green-500' : 'bg-red-500';
   const icon = type === 'success' ? (

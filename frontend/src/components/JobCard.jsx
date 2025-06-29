@@ -30,7 +30,7 @@ const JobCard = ({ job, onEdit, onDelete }) => {
   const statusBgColor = statusBgColors[job.status] || 'bg-gray-100 text-gray-700';
   
   return (
-    <div className={`glass-card card-effect p-6 flex flex-col gap-4 border-l-8 ${borderColor} hover:scale-[1.02] transition-transform duration-200`}> 
+    <div className={`bg-white shadow-lg rounded-lg p-5 flex flex-col gap-3 border-l-8 ${borderColor} transition-transform hover:scale-[1.02] hover:shadow-xl duration-200`}> 
       <div className="flex justify-between items-start">
         <h2 className="text-xl font-bold text-gray-800 truncate flex-1 mr-2">{job.title}</h2>
         <span className={`text-xs px-3 py-1 rounded-full font-semibold whitespace-nowrap ${statusBgColor}`}>

@@ -24,15 +24,6 @@ const STATUS_LABELS = [
   { key: 'Archived', label: 'Archived', icon: ArchiveBoxIcon, color: 'text-gray-600' },
 ];
 
-const statusBgColors = {
-  'Applied': 'bg-blue-100 text-blue-700',
-  'Interview Scheduled': 'bg-yellow-100 text-yellow-700',
-  'Interviewed': 'bg-orange-100 text-orange-700',
-  'Offer Received': 'bg-green-100 text-green-700',
-  'Rejected': 'bg-red-100 text-red-700',
-  'Archived': 'bg-gray-100 text-gray-700',
-};
-
 export default function Dashboard() {
   const [jobs, setJobs] = useState([]);
   const [loadingJobs, setLoadingJobs] = useState(true);
